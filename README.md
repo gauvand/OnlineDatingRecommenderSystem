@@ -12,11 +12,11 @@ For the purposes of this final project, I hope to build a collaborative filterin
 
 In a user-user style collaborative filtering system, the algorithm first searches the database for users with similar ratings vectors to user  a , who we wish to recommend candidates to. The  k  most similar neighbours are then used to predict candidate  j  based on the network of user  a . I decided to use the approach taken by Brozovsky. According to this approach, the prediction for the user  a  and profile  j  is given by:
     
-<img src = "https://latex.codecogs.com/svg.latex?p_{a,j}%20=%20\overline{R_i}%20+%20\alpha%20\sum_{i%20=%201}^{k}w(a,n_i)(R_{n_i,j}%20-%20\overline{R_{n_i}})" >
+<img src = "https://latex.codecogs.com/svg.latex?p_%7Ba%2Cj%7D%20%3D%20%5Coverline%7BR_i%7D%20&plus;%20%5Calpha%20%5Csum_%7Bi%20%3D%201%7D%5E%7Bk%7Dw%28a%2Cn_i%29%28R_%7Bn_i%2Cj%7D%20-%20%5Coverline%7BR_%7Bn_i%7D%7D%29" >
 
 Here,  \overline{R_{.,u}}  refers to the mean rating given by user  u , and  \alpha  is the normalizing factor. The user-user similarity,  w , can be calculated using a similarity metric such as the Pearson Correlation Coefficient. For two users  a  and  j :
 
-<img src = "https://latex.codecogs.com/svg.latex?w(a,j)%20=%20\frac{\sum_{i}(R_{ai}%20-%20\overline{R_{a}})%20\cdot%20{R_{ji}%20-%20\overline{R_j}}}{\sqrt{%20%20{\sum_{i}(R_{ai}%20-%20\overline{R_a})^2}}\sqrt{%20%20%20%20%20%20%20\sum_{i}(R_{ji}%20-%20\overline{R_j})^2%20%20%20%20%20%20}}">
+<img src = "https://latex.codecogs.com/svg.latex?w%28a%2Cj%29%20%3D%20%5Cfrac%7B%5Csum_%7Bi%7D%28R_%7Bai%7D%20-%20%5Coverline%7BR_%7Ba%7D%7D%29%20%5Ccdot%20%7BR_%7Bji%7D%20-%20%5Coverline%7BR_j%7D%7D%7D%7B%5Csqrt%7B%20%7B%5Csum_%7Bi%7D%28R_%7Bai%7D%20-%20%5Coverline%7BR_a%7D%29%5E2%7D%7D%5Csqrt%7B%20%5Csum_%7Bi%7D%28R_%7Bji%7D%20-%20%5Coverline%7BR_j%7D%29%5E2%20%7D%7D">
 
 
 The summations from  i  represent the indices of the top  k  similar users to  a  which have rated profile  j .  n_i  is the i-th most similar user to  a . 
@@ -27,13 +27,13 @@ Similar to the user-user method, the item-oriented approach to collaborative fil
 
 The prediction for the user  a  and the profile j is given by:
 
-<img src = "https://latex.codecogs.com/svg.latex?p_{a,j}%20=%20\overline{R_{.,j}}%20+%20\alpha%20\sum_{i%20=%201}^{k}{%20\widetilde{%20w}(j,n_i)(R_{a,n_i}%20-%20\overline{R_{.,n_i}})%20}">
+<img src = "https://latex.codecogs.com/svg.latex?p_%7Ba%2Cj%7D%20%3D%20%5Coverline%7BR_%7B.%2Cj%7D%7D%20&plus;%20%5Calpha%20%5Csum_%7Bi%20%3D%201%7D%5E%7Bk%7D%7B%20%5Cwidetilde%7B%20w%7D%28j%2Cn_i%29%28R_%7Ba%2Cn_i%7D%20-%20%5Coverline%7BR_%7B.%2Cn_i%7D%7D%29%20%7D">
     
 Here,  \overline{R_{.,u}}  refers to the mean rating of profile  u , and  \alpha  is the normalizing factor.
 
 The item-item similarity,  \widetilde{w}  can also be calculated using the Pearson Correlation Coefficient. For a profile  j  and a profile  l :
 
-<img src = "https://latex.codecogs.com/svg.latex?\widetilde{w}(j,l)%20=%20\frac{\sum_{i}(R_{ij}%20-%20\overline{R_{i}})%20\cdot%20{R_{il}%20-%20\overline{R_i}}}{\sqrt{%20%20{\sum_{i}(R_{ij}%20-%20\overline{R_i})^2}}\sqrt{%20%20%20%20%20%20%20\sum_{i}(R_{il}%20-%20\overline{R_i})^2%20%20%20%20%20%20}}">
+<img src = "https://latex.codecogs.com/svg.latex?%5Cwidetilde%7Bw%7D%28j%2Cl%29%20%3D%20%5Cfrac%7B%5Csum_%7Bi%7D%28R_%7Bij%7D%20-%20%5Coverline%7BR_%7Bi%7D%7D%29%20%5Ccdot%20%7BR_%7Bil%7D%20-%20%5Coverline%7BR_i%7D%7D%7D%7B%5Csqrt%7B%20%7B%5Csum_%7Bi%7D%28R_%7Bij%7D%20-%20%5Coverline%7BR_i%7D%29%5E2%7D%7D%5Csqrt%7B%20%5Csum_%7Bi%7D%28R_%7Bil%7D%20-%20%5Coverline%7BR_i%7D%29%5E2%20%7D%7D">
 
 
 Here, the summations from  i  represent the indices of the top  k  similar profiles to  j  which have been rated by user  a .  n_i  is the i-th most similar profile to  j . 
@@ -44,7 +44,7 @@ Here, the summations from  i  represent the indices of the top  k  similar profi
 Several different ideas surrounding the implementation of reciprocal recommendation exist. \Pizzato et al. suggest using their RECON implementation of the reciprocal recommender that takes into account several attributes that represent a user's interests (for example, personality type, body shape, education, etc.), and uses this information to gauge \textit{preference.} After obtaining the preferences, the recommender system is able to generate a list of people who match some of these attributes and assign them a \textit{compatibility score}. Finally, the reciprocal score,  R , for users  x  and  y  can be calculated as:
 
 
-<img src = "https://latex.codecogs.com/svg.latex?R_{xy}%20=%20R_{yx}%20=%20\frac{2}{[\text{Compatibility}(P_x,y)]^{-1}%20+%20[\text{Compatibility}(P_y,x)]^{-1}}">
+<img src = "https://latex.codecogs.com/svg.latex?R_%7Bxy%7D%20%3D%20R_%7Byx%7D%20%3D%20%5Cfrac%7B2%7D%7B%5B%5Ctext%7BCompatibility%7D%28P_x%2Cy%29%5D%5E%7B-1%7D%20&plus;%20%5B%5Ctext%7BCompatibility%7D%28P_y%2Cx%29%5D%5E%7B-1%7D%7D">
 
 
 where P_u represents the preferences of a user u and Compatibility(P_u,m) represents the compatibility score for user m based on the preference of user u.
