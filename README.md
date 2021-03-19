@@ -10,55 +10,44 @@ For the purposes of this final project, I hope to build a collaborative filterin
 
 ### User-oriented approach
 
-In a user-user style collaborative filtering system, the algorithm first searches the database for users with similar ratings vectors to user $a$, who we wish to recommend candidates to. The $k$ most similar neighbours are then used to predict candidate $j$ based on the network of user $a$. I decided to use the approach taken by Brozovsky. According to this approach, the prediction for the user $a$ and profile $j$ is given by:
+In a user-user style collaborative filtering system, the algorithm first searches the database for users with similar ratings vectors to user  a , who we wish to recommend candidates to. The  k  most similar neighbours are then used to predict candidate  j  based on the network of user  a . I decided to use the approach taken by Brozovsky. According to this approach, the prediction for the user  a  and profile  j  is given by:
     
-$
-p_{a,j} = \overline{R_i} + \alpha \sum_{i = 1}^{k}w(a,n_i)(R_{n_i,j} - \overline{R_{n_i}}) 
-$
+<img src = https://latex.codecogs.com/svg.latex?p_{a,j}%20=%20\overline{R_i}%20+%20\alpha%20\sum_{i%20=%201}^{k}w(a,n_i)(R_{n_i,j}%20-%20\overline{R_{n_i}})>
 
-Here, $\overline{R_{.,u}}$ refers to the mean rating given by user $u$, and $\alpha$ is the normalizing factor. The user-user similarity, $w$, can be calculated using a similarity metric such as the Pearson Correlation Coefficient. For two users $a$ and $j$:
+Here,  \overline{R_{.,u}}  refers to the mean rating given by user  u , and  \alpha  is the normalizing factor. The user-user similarity,  w , can be calculated using a similarity metric such as the Pearson Correlation Coefficient. For two users  a  and  j :
 
-$
-w(a,j) = \frac{\sum_{i}(R_{ai} - \overline{R_{a}}) \cdot {R_{ji} - \overline{R_j}}}{\sqrt{  {\sum_{i}(R_{ai} - \overline{R_a})^2}}\sqrt{       \sum_{i}(R_{ji} - \overline{R_j})^2      }}
-$
+<img src = https://latex.codecogs.com/svg.latex?w(a,j)%20=%20\frac{\sum_{i}(R_{ai}%20-%20\overline{R_{a}})%20\cdot%20{R_{ji}%20-%20\overline{R_j}}}{\sqrt{%20%20{\sum_{i}(R_{ai}%20-%20\overline{R_a})^2}}\sqrt{%20%20%20%20%20%20%20\sum_{i}(R_{ji}%20-%20\overline{R_j})^2%20%20%20%20%20%20}}>
 
 
-The summations from $i$ represent the indices of the top $k$ similar users to $a$ which have rated profile $j$. $n_i$ is the i-th most similar user to $a$. 
+The summations from  i  represent the indices of the top  k  similar users to  a  which have rated profile  j .  n_i  is the i-th most similar user to  a . 
 
 ## Item-oriented approach
 
-Similar to the user-user method, the item-oriented approach to collaborative filtering by Brozovsky uses the similarity between items or user profiles in an attempt to make a prediction for the active user $a$. The ratings of the top $k$ similar profiles from the user $a$ are then used to generate predictions for the profile $j$.
+Similar to the user-user method, the item-oriented approach to collaborative filtering by Brozovsky uses the similarity between items or user profiles in an attempt to make a prediction for the active user a. The ratings of the top  k  similar profiles from the user  a  are then used to generate predictions for the profile  j .
 
-The prediction for the user $a$ and the profile $j$ is given by:
+The prediction for the user  a  and the profile j is given by:
 
+<img src = https://latex.codecogs.com/svg.latex?p_{a,j}%20=%20\overline{R_{.,j}}%20+%20\alpha%20\sum_{i%20=%201}^{k}{%20\widetilde{%20w}(j,n_i)(R_{a,n_i}%20-%20\overline{R_{.,n_i}})%20}>
     
-$
-p_{a,j} = \overline{R_{.,j}} + \alpha \sum_{i = 1}^{k}{ \widetilde{ w}(j,n_i)(R_{a,n_i} - \overline{R_{.,n_i}}) }
-$
+Here,  \overline{R_{.,u}}  refers to the mean rating of profile  u , and  \alpha  is the normalizing factor.
 
-Here, $\overline{R_{.,u}}$ refers to the mean rating of profile $u$, and $\alpha$ is the normalizing factor.
+The item-item similarity,  \widetilde{w}  can also be calculated using the Pearson Correlation Coefficient. For a profile  j  and a profile  l :
 
-The item-item similarity, $\widetilde{w}$ can also be calculated using the Pearson Correlation Coefficient. For a profile $j$ and a profile $l$:
+<img src = https://latex.codecogs.com/svg.latex?\widetilde{w}(j,l)%20=%20\frac{\sum_{i}(R_{ij}%20-%20\overline{R_{i}})%20\cdot%20{R_{il}%20-%20\overline{R_i}}}{\sqrt{%20%20{\sum_{i}(R_{ij}%20-%20\overline{R_i})^2}}\sqrt{%20%20%20%20%20%20%20\sum_{i}(R_{il}%20-%20\overline{R_i})^2%20%20%20%20%20%20}}>
 
 
-$
-\widetilde{w}(j,l) = \frac{\sum_{i}(R_{ij} - \overline{R_{i}}) \cdot {R_{il} - \overline{R_i}}}{\sqrt{  {\sum_{i}(R_{ij} - \overline{R_i})^2}}\sqrt{       \sum_{i}(R_{il} - \overline{R_i})^2      }}
-$
-
-Here, the summations from $i$ represent the indices of the top $k$ similar profiles to $j$ which have been rated by user $a$. $n_i$ is the i-th most similar profile to $j$. 
+Here, the summations from  i  represent the indices of the top  k  similar profiles to  j  which have been rated by user  a .  n_i  is the i-th most similar profile to  j . 
 
 
 ## Reciprocal Recommendation approach
 
-Several different ideas surrounding the implementation of reciprocal recommendation exist. \citet{pizzato10} suggest using their RECON implementation of the reciprocal recommender that takes into account several attributes that represent a user's interests (for example, personality type, body shape, education, etc.), and uses this information to gauge \textit{preference.} After obtaining the preferences, the recommender system is able to generate a list of people who match some of these attributes and assign them a \textit{compatibility score}. Finally, the reciprocal score, $R$, for users $x$ and $y$ can be calculated as:
+Several different ideas surrounding the implementation of reciprocal recommendation exist. \Pizzato et al. suggest using their RECON implementation of the reciprocal recommender that takes into account several attributes that represent a user's interests (for example, personality type, body shape, education, etc.), and uses this information to gauge \textit{preference.} After obtaining the preferences, the recommender system is able to generate a list of people who match some of these attributes and assign them a \textit{compatibility score}. Finally, the reciprocal score,  R , for users  x  and  y  can be calculated as:
 
 
-$
-R_{xy} = R_{yx} = \frac{2}{[\text{Compatibility}(P_x,y)]^{-1} + [\text{Compatibility}(P_y,x)]^{-1}}
-$   
+<img src = https://latex.codecogs.com/svg.latex?R_{xy}%20=%20R_{yx}%20=%20\frac{2}{[\text{Compatibility}(P_x,y)]^{-1}%20+%20[\text{Compatibility}(P_y,x)]^{-1}}>
 
 
-where $P_u$ represents the preferences of a user $u$ and $\text{Compatibility}(P_u,m)$ represents the compatibility score for user $m$ based on the preference of user $u$.
+where P_u represents the preferences of a user u and Compatibility(P_u,m) represents the compatibility score for user m based on the preference of user u.
 
 
 I aim to tackle this problem using a similar approach, if time permits.
