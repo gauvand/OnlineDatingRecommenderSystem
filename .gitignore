@@ -1,2 +1,6 @@
 *full_data.txt
 *.spy*
+*.env*
+.ipynb_checkpoints
+metastore_db
+derby.log
